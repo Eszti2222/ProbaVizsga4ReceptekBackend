@@ -16,7 +16,7 @@ class Receptek extends Model
         'leiras',
     ];
     
-    public function kategoria()
+    public function kategoriak()
     {
             /*„Ez a model(Receptek) ehhez a táblához tartozik(Kategoriak)” 'kat_id' → ez a külső kulcs
                 |                       |

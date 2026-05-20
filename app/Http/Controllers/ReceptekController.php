@@ -19,7 +19,7 @@ class ReceptekController extends Controller
     */
     public function index()
     {
-        return Receptek::with('kategoria')->get();
+        return Receptek::with('kategoriak')->get();
     }
 
     /**
@@ -54,17 +54,29 @@ class ReceptekController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Receptek $receptek)
+ /*   public function destroy(Receptek $receptek)
     {
         Receptek::find($id)->delete(); //find($id) megkeresi az adott receptet
     }
+*/
 
+    public function destroy($id)
+    {
+        $recept = Receptek::find($id);
     
-    public function szures($kat_id)
-        {
-            return Receptek::with('kategoria')
-                ->where('kat_id', $kat_id)
-                ->get();
+        if (!$recept) {
+            return response()->json(['message' => 'Nincs ilyen recept'], 404);
         }
+    
+        $recept->delete();
+    
+        return response()->json(['message' => 'Törölve']);
+    }
 
+    public function szures($kat_id)
+    {
+        return Receptek::with('kategoriak')
+            ->where('kat_id', $kat_id)
+            ->get();
+    }
 }
